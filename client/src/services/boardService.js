@@ -21,6 +21,9 @@ const boardService = {
         // return res.data
         console.log(res)
 
+        const item = res.data
+
+
         let firstColumnIndex = 0;
 
         const column = lists[Object.keys(lists)[firstColumnIndex]];
@@ -28,7 +31,6 @@ const boardService = {
         console.log(column);
         const items = [...column.items];
         // TODO:: generate id from server 
-        const item = { id: 'asdasdasdasd', content: content }
         items.push(item)
 
         lists[column._id] = {
