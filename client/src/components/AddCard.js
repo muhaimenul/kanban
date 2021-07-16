@@ -2,7 +2,7 @@ import React from 'react'
 import TextInput from '../components/TextInput';
 
 const AddCard = props => {
-    let { onChange, onSubmit, cardTitle, ...rest } = props;
+    let { onChange, onSubmit, cardTitle, isLoading, ...rest } = props;
 
     return (
         <div style={style.container} className="container">
@@ -19,7 +19,7 @@ const AddCard = props => {
                     value={cardTitle}
                     required
                     {...rest} />
-                <button type="button" style={style.btn} onClick={onSubmit}> Add </button>
+                <button type="button" style={style.btn} onClick={onSubmit} disabled={isLoading}> Add </button>
             </div>
         </div>
     )

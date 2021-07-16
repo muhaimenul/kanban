@@ -35,7 +35,7 @@ function Board() {
 
     const addTask = async () => {
 
-        if(!cardTitle) return alert('Title can not be empty!')
+        if (!cardTitle) return alert('Title can not be empty!')
 
         setIsLoading(true)
         try {
@@ -65,33 +65,32 @@ function Board() {
     return (
         <Fragment>
 
-            {isLoading ?
-                <img src={logo} className="App-logo" alt="logo" />
-                :
-                <>
-                    <AddCard
-                        cardTitle={cardTitle}
-                        onChange={handleCardTitleChange}
-                        onSubmit={addTask}
-                    />
+            {isLoading && <img src={logo} className="App-logo" alt="logo" />}
+            <>
+                <AddCard
+                    cardTitle={cardTitle}
+                    onChange={handleCardTitleChange}
+                    onSubmit={addTask}
+                    isLoading={isLoading}
+                />
 
-                    {lists && (
-                        <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
-                            <DragDropContext
-                                onDragEnd={result => changeCardStatus(result, lists)}
-                            >
-                                {Object.entries(lists).map(([listId, list], index) => {
-                                    return <List
-                                        key={listId}
-                                        columnId={listId}
-                                        column={list}
-                                        index={index}
-                                    />
-                                })}
-                            </DragDropContext>
-                        </div>
-                    )}
-                </>
+                {lists && (
+                    <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
+                        <DragDropContext
+                            onDragEnd={result => changeCardStatus(result, lists)}
+                        >
+                            {Object.entries(lists).map(([listId, list], index) => {
+                                return <List
+                                    key={listId}
+                                    columnId={listId}
+                                    column={list}
+                                    index={index}
+                                />
+                            })}
+                        </DragDropContext>
+                    </div>
+                )}
+            </>
             }
 
         </Fragment>
