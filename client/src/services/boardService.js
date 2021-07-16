@@ -6,24 +6,58 @@ const boardService = {
     async getBoardDetails() {
         let url = config.app.api_url + '/board'
         let res = await client.get(url)
-        console.log(res)
         return res.data
     },
 
-    async updateBoard(result, columns, setColumns) {
+
+    async addCard(lists, content, setLists) {
+
+
+        let url = config.app.api_url + '/task'
+
+
+        let params = { content: content }
+        let res = await client.post(url, [], params)
+        // return res.data
+        console.log(res)
+
+        let firstColumnIndex = 0;
+
+        const column = lists[Object.keys(lists)[firstColumnIndex]];
+
+        console.log(column);
+        const items = [...column.items];
+        // TODO:: generate id from server 
+        const item = { id: 'asdasdasdasd', content: content }
+        items.push(item)
+
+        lists[column._id] = {
+            ...column,
+            items: items
+        }
+
+    
+
+        setLists({...lists});
+
+
+    },
+
+
+    async updateBoard(result, lists, setLists) {
         if (!result.destination) return;
         const { source, destination } = result;
 
-        const sourceColumn = columns[source.droppableId];
+        const sourceColumn = lists[source.droppableId];
         const sourceItems = [...sourceColumn.items];
         const [removed] = sourceItems.splice(source.index, 1);
 
         if (source.droppableId !== destination.droppableId) {
-            const destColumn = columns[destination.droppableId];
+            const destColumn = lists[destination.droppableId];
             const destItems = [...destColumn.items];
             destItems.splice(destination.index, 0, removed);
-            setColumns({
-                ...columns,
+            setLists({
+                ...lists,
                 [source.droppableId]: {
                     ...sourceColumn,
                     items: sourceItems
@@ -35,45 +69,14 @@ const boardService = {
             });
         } else {
             sourceItems.splice(destination.index, 0, removed);
-            setColumns({
-                ...columns,
+            setLists({
+                ...lists,
                 [source.droppableId]: {
                     ...sourceColumn,
                     items: sourceItems
                 }
             });
         }
-    },
-
-    async addCard(columns, content, setColumns) {
-
-        let firstColumnIndex = 0;
-
-        const column = columns[Object.keys(columns)[firstColumnIndex]];
-
-        console.log(column);
-        const items = [...column.items];
-        // TODO:: generate id from server 
-        const item = { id: 'asdasdasdasd', content: content }
-        items.push(item)
-
-        columns[column._id] = {
-            ...column,
-            items: items
-        }
-
-    
-
-        setColumns({...columns});
-
-        // let url = config.app.api_url + '/update-service'
-
-        // let headers = AUTH_HEADER
-
-        // let params = { ...DEFAULT_PARAMS, ...formData }
-        // let res = await client.post(url, headers, params)
-        // return res.data
-
     },
 
 

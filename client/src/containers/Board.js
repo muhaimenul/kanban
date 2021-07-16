@@ -7,22 +7,21 @@ import { DragDropContext } from "react-beautiful-dnd";
 import boardService from '../services/boardService'
 
 // components
-import Column from '../components/Column';
+import List from '../components/List';
 import AddCard from '../components/AddCard';
 
 // custom hooks
 import { useInput } from '../helpers/customHooks'
 
 function Board() {
-    const [columns, setColumns] = useState(null);
+    const [lists, setLists] = useState(null);
     const [cardTitle, handleCardTitleChange, setCardTitle] = useInput('');
 
     useEffect(() => {
         (async () => {
             try {
                 let board = await boardService.getBoardDetails()
-                console.log(board)
-                setColumns(board);
+                setLists(board);
             } catch (e) {
                 alert(boardService.errorMessage(e))
             }
@@ -32,7 +31,7 @@ function Board() {
 
     const addTask = async () => {
         try {
-            await boardService.addCard(columns, cardTitle, setColumns)
+            await boardService.addCard(lists, cardTitle, setLists)
             setCardTitle('')
         } catch (e) {
             alert(boardService.errorMessage(e))
@@ -40,9 +39,9 @@ function Board() {
     }
 
 
-    const changeCardStatus = async (result, columns) => {
+    const changeCardStatus = async (result, lists) => {
         try {
-            await boardService.updateBoard(result, columns, setColumns)
+            await boardService.updateBoard(result, lists, setLists)
         } catch (e) {
             alert(boardService.errorMessage(e))
         }
@@ -58,16 +57,17 @@ function Board() {
                 onSubmit={addTask}
             />
 
-            {columns ? (
+            {lists ? (
 
                 <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
                     <DragDropContext
-                        onDragEnd={result => changeCardStatus(result, columns)}
+                        onDragEnd={result => changeCardStatus(result, lists)}
                     >
-                        {Object.entries(columns).map(([columnId, column], index) => {
-                            return <Column
-                                columnId={columnId}
-                                column={column}
+                        {Object.entries(lists).map(([listId, list], index) => {
+                            return <List
+                                key={listId}
+                                columnId={listId}
+                                column={list}
                                 index={index}
                             />
                         })}

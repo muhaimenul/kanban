@@ -2,7 +2,7 @@ import React from 'react'
 import { Droppable } from "react-beautiful-dnd";
 import Card from './Card';
 
-const Column = props => {
+const List = props => {
     let { columnId, column, index, ...rest } = props;
 
     return (
@@ -47,6 +47,7 @@ const Column = props => {
                             >
                                 {column.items.map((item, index) => {
                                     return <Card
+                                        key={item.id}
                                         item={item}
                                         index={index}
                                     />
@@ -62,4 +63,4 @@ const Column = props => {
     );
 };
 
-export default Column;
+export default List;
