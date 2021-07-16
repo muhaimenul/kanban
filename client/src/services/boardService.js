@@ -19,23 +19,18 @@ const boardService = {
         let res = await client.post(url, [], params)
         let item = res.data
 
-        let firstColumnIndex = 0;
-        let column = lists[Object.keys(lists)[firstColumnIndex]];
+        let firstListIndex = 0;
+        let list = lists[Object.keys(lists)[firstListIndex]];
+        let items = [...list.items];
 
-        console.log(column);
-        let items = [...column.items];
-        // TODO:: generate id from server 
         items.push(item)
 
-        lists[column._id] = {
-            ...column,
+        lists[list._id] = {
+            ...list,
             items: items
         }
 
-    
-
         setLists({...lists});
-
 
     },
 
@@ -44,22 +39,22 @@ const boardService = {
         if (!result.destination) return;
         let { source, destination } = result;
 
-        let sourceColumn = lists[source.droppableId];
-        let sourceItems = [...sourceColumn.items];
+        let sourceList = lists[source.droppableId];
+        let sourceItems = [...sourceList.items];
         let [removed] = sourceItems.splice(source.index, 1);
 
         if (source.droppableId !== destination.droppableId) {
-            let destColumn = lists[destination.droppableId];
-            let destItems = [...destColumn.items];
+            let destList = lists[destination.droppableId];
+            let destItems = [...destList.items];
             destItems.splice(destination.index, 0, removed);
             setLists({
                 ...lists,
                 [source.droppableId]: {
-                    ...sourceColumn,
+                    ...sourceList,
                     items: sourceItems
                 },
                 [destination.droppableId]: {
-                    ...destColumn,
+                    ...destList,
                     items: destItems
                 }
             });
@@ -68,7 +63,7 @@ const boardService = {
             setLists({
                 ...lists,
                 [source.droppableId]: {
-                    ...sourceColumn,
+                    ...sourceList,
                     items: sourceItems
                 }
             });

@@ -24,10 +24,39 @@ app.get('/api/board', (req, res) => {
 
 app.post('/api/task', (req, res) => {
     //TODO:: store in db
-    res.status(200).json({
-        id: uuidv4(),
-        content: req.body.content
-    })
+
+    let dbFilePath = __dirname + '/' + 'data.json'
+    fs.readFile(dbFilePath, 'utf8', (err, data) => {
+        
+        let item = {
+            id: uuidv4(),
+            content: req.body.content
+        }
+
+
+        let lists = JSON.parse(data)
+
+        let firstListIndex = 0;
+
+        let list = lists[Object.keys(lists)[firstListIndex]];
+        let items = [...list.items];
+        items.push(item)
+
+        lists[list._id] = {
+            ...list,
+            items: items
+        }
+
+        data = JSON.stringify(lists)
+
+        fs.writeFile(dbFilePath, data, 'utf8', function (err) {
+            if (err) return console.log(err);
+         });
+
+        res.status(200).json(item)
+        
+    });
+
 });
 
 
