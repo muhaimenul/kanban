@@ -91,7 +91,6 @@ function Board() {
                     </div>
                 )}
             </>
-            }
 
         </Fragment>
     );
