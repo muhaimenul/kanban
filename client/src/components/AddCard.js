@@ -2,15 +2,19 @@ import React from 'react'
 import TextInput from '../components/TextInput';
 
 const AddCard = props => {
-    let { onChange, onSubmit, ...rest } = props;
+    let { onChange, onSubmit, cardTitle, ...rest } = props;
 
     return (
         <div style={style.container} className="container">
             <h2>Kanban</h2>
             <div style={style.form}>
-                <TextInput onChange={onChange} placeholder="Write your task ..." className="form-control" style={style.input} />
+                <TextInput onChange={onChange}
+                    placeholder="Write your task ..."
+                    className="form-control"
+                    style={style.input}
+                    value={cardTitle}
+                    {...rest} />
                 <button type="button" style={style.btn} onClick={onSubmit}> Add </button>
-                <div />
             </div>
         </div>
     )

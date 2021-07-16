@@ -53,6 +53,7 @@ function Board() {
         <React.Fragment>
 
             <AddCard
+                cardTitle={cardTitle}
                 onChange={handleCardTitleChange}
                 onSubmit={addTask}
             />
