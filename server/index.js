@@ -32,7 +32,8 @@ app.post('/api/task', (req, res) => {
         
         let item = {
             id: uuidv4(),
-            content: req.body.content
+            content: req.body.content,
+            created_at: Date.now()
         }
 
 
