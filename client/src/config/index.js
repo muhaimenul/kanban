@@ -6,6 +6,7 @@ const app = {
     // api_url: 'http://agent.upayz.asia/api'
 }
 
-export default {
+const config = {
     app
-};
+}
+export default config

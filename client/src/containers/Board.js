@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import logo from "../logo.svg";
 import '../App.css';
-import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd";
 
 // api srvices
 import boardService from '../services/boardService'
@@ -53,6 +53,8 @@ function Board() {
     const [columns, setColumns] = useState(null);
     const [cardTitle, handleCardTitleChange, setCardTitle] = useInput('');
 
+
+
     useEffect(() => {
         (async () => {
             try {
@@ -65,14 +67,20 @@ function Board() {
         })()
     }, [])
 
+
+    const addTask = () => {
+        console.log(cardTitle)
+    }
+
     return (
         <React.Fragment>
 
-            <AddCard 
-                placeholder = "Write your task ..."
-                onChange = {handleCardTitleChange}
+            <AddCard
+                placeholder="Write your task ..."
+                onChange={handleCardTitleChange}
+                onSubmit={addTask}
             />
-            
+
             {columns ? (
 
                 <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
