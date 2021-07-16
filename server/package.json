@@ -4,6 +4,8 @@
   "description": "Backend API for personal Kanban",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "server": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Muhaimenul Islam",
