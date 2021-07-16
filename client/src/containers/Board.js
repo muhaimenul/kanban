@@ -8,7 +8,9 @@ import boardService from '../services/boardService'
 
 // components
 import Column from '../components/Column';
+import AddCard from '../components/AddCard';
 
+import { useInput } from '../helpers/customHooks'
 
 const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
@@ -49,7 +51,7 @@ const onDragEnd = (result, columns, setColumns) => {
 
 function Board() {
     const [columns, setColumns] = useState(null);
-    const [cardTitle, setCardTitle] = useState('');
+    const [cardTitle, handleCardTitleChange, setCardTitle] = useInput('');
 
     useEffect(() => {
         (async () => {
@@ -66,6 +68,11 @@ function Board() {
     return (
         <React.Fragment>
 
+            <AddCard 
+                placeholder = "Write your task ..."
+                onChange = {handleCardTitleChange}
+            />
+            
             {columns ? (
 
                 <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
