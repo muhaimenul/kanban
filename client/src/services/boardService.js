@@ -1,14 +1,13 @@
 import { client } from '../helpers/client'
 import config from '../config'
-import data from '../data'
 
 const boardService = {
 
     async getBoardDetails() {
 
-        return data;
+        // return data;
 
-        let url = config.app.api_url + '/board-details'
+        let url = config.app.api_url + '/board'
 
 
         let res = await client.get(url)

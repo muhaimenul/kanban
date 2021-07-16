@@ -21,6 +21,8 @@ function Board() {
         (async () => {
             try {
                 let board = await boardService.getBoardDetails()
+                
+                console.log(board)
                 setColumns(board);
             } catch (e) {
                 alert(boardService.errorMessage(e))
