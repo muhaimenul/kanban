@@ -2,7 +2,7 @@
 > A personal kanban board protype built with the React, Express and Node stack.
 
 
-## Part One (Fronted)
+## Part One (Frontend)
 - ```./client``` directory
 - Developed using ReactJS and React Hooks
 
@@ -41,7 +41,7 @@ npm start
 
 Then visit `http://localhost:3000/` to play with the kanban board.
 
-|Default ports and configuration can be changed.
+|Default ports can be changed. But then, API url configuration in the client needed to be updated.
 
 
 
