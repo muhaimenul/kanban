@@ -1,1 +1,1 @@
-{"1":{"_id":1,"name":"To do","items":[{"id":"90790bd4-67a8-4549-b90f-90303dc37af6","content":"First task"},{"id":"26c04631-62bf-442a-aad8-d6aa2defc3c6","content":"hukka"}]},"2":{"_id":1,"name":"In Progress","items":[]},"3":{"_id":3,"name":"Done","items":[]}}
+{"1":{"_id":1,"name":"To do","items":[{"id":"90790bd4-67a8-4549-b90f-90303dc37af6","content":"Task 01"}]},"2":{"_id":1,"name":"In Progress","items":[{"id":"26c04631-62bf-442a-aad8-d6aa2defc3c6","content":"Task 02"}]},"3":{"_id":3,"name":"Done","items":[]}}

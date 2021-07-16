@@ -43,11 +43,14 @@ const boardService = {
         let sourceItems = [...sourceList.items];
         let [removed] = sourceItems.splice(source.index, 1);
 
+        let board;
+
         if (source.droppableId !== destination.droppableId) {
             let destList = lists[destination.droppableId];
             let destItems = [...destList.items];
             destItems.splice(destination.index, 0, removed);
-            setLists({
+
+            board = {
                 ...lists,
                 [source.droppableId]: {
                     ...sourceList,
@@ -57,17 +60,26 @@ const boardService = {
                     ...destList,
                     items: destItems
                 }
-            });
+            }
+
+            setLists(board);
         } else {
             sourceItems.splice(destination.index, 0, removed);
-            setLists({
+            board = {
                 ...lists,
                 [source.droppableId]: {
                     ...sourceList,
                     items: sourceItems
                 }
-            });
+            }
+
+            setLists(board);
         }
+
+        let url = config.app.api_url + '/board'
+
+        let params = { board: board }
+        await client.post(url, [], params)
     },
 
 

@@ -10,6 +10,9 @@ const PORT = process.env.PORT || 5000;
 app.use(cors())
 app.use(express.json())
 
+// temporary db
+const dbFilePath = __dirname + '/' + 'data.json'
+
 app.get('/', (req, res) => {
     res.end('Hello Muhaimenul Islam!');
 });
@@ -25,7 +28,6 @@ app.get('/api/board', (req, res) => {
 app.post('/api/task', (req, res) => {
     //TODO:: store in db
 
-    let dbFilePath = __dirname + '/' + 'data.json'
     fs.readFile(dbFilePath, 'utf8', (err, data) => {
         
         let item = {
@@ -62,6 +64,15 @@ app.post('/api/task', (req, res) => {
 
 app.post('/api/board', (req, res) => {
     //TODO:: update board on task status change
+
+    let data = JSON.stringify(req.body.board)
+
+    fs.writeFile(dbFilePath, data, 'utf8', function (err) {
+
+        if (err) return console.log(err);
+
+        res.status(200).json(data)
+     });
 });
 
 
