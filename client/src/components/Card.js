@@ -20,10 +20,10 @@ const Card = props => {
                             userSelect: "none",
                             padding: 16,
                             margin: "0 0 8px 0",
-                            minHeight: "50px",
+                            minHeight: "10px",
                             backgroundColor: snapshot.isDragging
-                                ? "#263B4A"
-                                : "#456C86",
+                                ? "rgb(148 151 169)"
+                                : "rgb(190 189 189)",
                             color: "white",
                             ...provided.draggableProps.style
                         }}

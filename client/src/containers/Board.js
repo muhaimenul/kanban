@@ -10,13 +10,12 @@ import boardService from '../services/boardService'
 import Column from '../components/Column';
 import AddCard from '../components/AddCard';
 
+// custom hooks
 import { useInput } from '../helpers/customHooks'
 
 function Board() {
     const [columns, setColumns] = useState(null);
     const [cardTitle, handleCardTitleChange, setCardTitle] = useInput('');
-
-
 
     useEffect(() => {
         (async () => {

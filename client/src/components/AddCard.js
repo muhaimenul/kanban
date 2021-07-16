@@ -6,7 +6,11 @@ const AddCard = props => {
 
     return (
         <div style={style.container} className="container">
-            <h2>Kanban</h2>
+            <h2
+            style={{
+                margin: "0 0 25px 0"
+            }}
+            >Muhaimen's Kanban</h2>
             <div style={style.form}>
                 <TextInput onChange={onChange}
                     placeholder="Write your task ..."
