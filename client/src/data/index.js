@@ -8,20 +8,24 @@ const cards = [
     { id: uuid(), content: "Fifth task" }
 ];
 
+const fC = uuid()
+const sC = uuid()
+const tC = uuid()
+
+
 const columns = {
-    [uuid()]: {
-        name: "Requested",
+    [fC]: {
+        _id: fC,
+        name: "To do",
         items: cards
     },
-    [uuid()]: {
-        name: "To do",
-        items: []
-    },
-    [uuid()]: {
+    [sC]: {
+        _id: sC,
         name: "In Progress",
         items: []
     },
-    [uuid()]: {
+    [tC]: {
+        _id: tC,
         name: "Done",
         items: []
     }

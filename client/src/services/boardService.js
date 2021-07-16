@@ -50,11 +50,26 @@ const boardService = {
         }
     },
 
-    async addCard(data) {
+    async addCard(columns, content, setColumns) {
 
-        // let formData = {
-        //     service_types: data
-        // }
+        let firstColumnIndex = 0;
+
+        const column = columns[Object.keys(columns)[firstColumnIndex]];
+
+        console.log(column);
+        const items = [...column.items];
+        // TODO:: generate id from server 
+        const item = { id: 'asdasdasdasd', content: content }
+        items.push(item)
+
+        columns[column._id] = {
+            ...column,
+            items: items
+        }
+
+    
+
+        setColumns({...columns});
 
         // let url = config.app.api_url + '/update-service'
 

@@ -30,8 +30,13 @@ function Board() {
     }, [])
 
 
-    const addTask = () => {
-        console.log(cardTitle)
+    const addTask = async () => {
+        try {
+            await boardService.addCard(columns, cardTitle, setColumns)
+            setCardTitle('')
+        } catch (e) {
+            alert(boardService.errorMessage(e))
+        }
     }
 
 
