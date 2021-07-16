@@ -49,6 +49,7 @@ const onDragEnd = (result, columns, setColumns) => {
 
 function Board() {
     const [columns, setColumns] = useState(null);
+    const [cardTitle, setCardTitle] = useState('');
 
     useEffect(() => {
         (async () => {
