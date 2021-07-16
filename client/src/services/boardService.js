@@ -4,13 +4,9 @@ import config from '../config'
 const boardService = {
 
     async getBoardDetails() {
-
-        // return data;
-
         let url = config.app.api_url + '/board'
-
-
         let res = await client.get(url)
+        console.log(res)
         return res.data
     },
 
