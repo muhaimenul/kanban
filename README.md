@@ -24,10 +24,12 @@ Then, setup and run backend (server):
 ```sh
 cd server
 npm install
-npm start
+nodemon
 ```
 
 By default, server will be serve `http://localhost:5000/`
+You may need to install, `nodemon` globally, if server is fail to run.
+
 Finally, setup and run fronted (client):
 
 ```sh

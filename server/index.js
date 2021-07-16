@@ -6,7 +6,7 @@ const fs = require('fs')
 const cors = require('cors')
 const app = express();
 const PORT = process.env.PORT || 5000;
- 
+
 app.use(cors())
 app.use(express.json())
 
@@ -26,10 +26,17 @@ app.get('/api/board', (req, res) => {
 
 
 app.post('/api/task', (req, res) => {
-    //TODO:: store in db
+
+    if (!req.body.content) {
+        return res.status(422).json({
+            message: 'Task can not be empty'
+        });
+    }
+
+    //TODO:: store in mongo db
 
     fs.readFile(dbFilePath, 'utf8', (err, data) => {
-        
+
         let item = {
             id: uuidv4(),
             content: req.body.content,
@@ -53,11 +60,13 @@ app.post('/api/task', (req, res) => {
         data = JSON.stringify(lists)
 
         fs.writeFile(dbFilePath, data, 'utf8', function (err) {
-            if (err) return console.log(err);
-         });
+            if (err) return res.status(422).json({
+                message: 'Unable to create task. Try again.'
+            });
+        });
 
         res.status(200).json(item)
-        
+
     });
 
 });
@@ -70,10 +79,12 @@ app.post('/api/board', (req, res) => {
 
     fs.writeFile(dbFilePath, data, 'utf8', function (err) {
 
-        if (err) return console.log(err);
+        if (err) return res.status(422).json({
+            message: 'Unable to update task. Try again.'
+        });
 
         res.status(200).json(data)
-     });
+    });
 });
 
 

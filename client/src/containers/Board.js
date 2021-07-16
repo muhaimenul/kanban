@@ -34,11 +34,15 @@ function Board() {
 
 
     const addTask = async () => {
+
+        if(!cardTitle) return alert('Title can not be empty!')
+
         setIsLoading(true)
         try {
             await boardService.addCard(lists, cardTitle, setLists)
             setCardTitle('')
         } catch (e) {
+            console.log(e.response.data.message, e.response)
             alert(boardService.errorMessage(e))
         } finally {
             setIsLoading(false)

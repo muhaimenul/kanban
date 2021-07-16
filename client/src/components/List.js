@@ -3,7 +3,7 @@ import { Droppable } from "react-beautiful-dnd";
 import Card from './Card';
 
 const List = props => {
-    let { columnId, column, index, ...rest } = props;
+    let { columnId, column } = props;
 
     return (
 

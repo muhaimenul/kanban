@@ -17,6 +17,7 @@ const AddCard = props => {
                     className="form-control"
                     style={style.input}
                     value={cardTitle}
+                    required
                     {...rest} />
                 <button type="button" style={style.btn} onClick={onSubmit}> Add </button>
             </div>

@@ -85,7 +85,7 @@ const boardService = {
 
     errorMessage(e) {
 
-        return e.message || e.data.message || e.response.data.message || 'Something went wrong!';
+        return e.response.data.message || e.message || e.data.message || 'Something went wrong!';
 
     }
 }

@@ -2,7 +2,7 @@ import React from 'react'
 import { Draggable } from "react-beautiful-dnd";
 
 const Card = props => {
-    let { item, index, ...rest } = props;
+    let { item, index } = props;
 
     return (
         <Draggable
