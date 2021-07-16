@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import logo from "../logo.svg";
 import '../App.css';
 import { DragDropContext } from "react-beautiful-dnd";
@@ -16,67 +16,81 @@ import { useInput } from '../helpers/customHooks'
 function Board() {
     const [lists, setLists] = useState(null);
     const [cardTitle, handleCardTitleChange, setCardTitle] = useInput('');
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         (async () => {
+            setIsLoading(true)
             try {
                 let board = await boardService.getBoardDetails()
                 setLists(board);
             } catch (e) {
                 alert(boardService.errorMessage(e))
+            } finally {
+                setIsLoading(false)
             }
         })()
     }, [])
 
 
     const addTask = async () => {
+        setIsLoading(true)
         try {
             await boardService.addCard(lists, cardTitle, setLists)
             setCardTitle('')
         } catch (e) {
             alert(boardService.errorMessage(e))
+        } finally {
+            setIsLoading(false)
         }
     }
 
 
     const changeCardStatus = async (result, lists) => {
+        setIsLoading(true)
         try {
             await boardService.updateBoard(result, lists, setLists)
         } catch (e) {
             alert(boardService.errorMessage(e))
+        } finally {
+            setIsLoading(false)
         }
     };
 
 
     return (
-        <React.Fragment>
+        <Fragment>
 
-            <AddCard
-                cardTitle={cardTitle}
-                onChange={handleCardTitleChange}
-                onSubmit={addTask}
-            />
+            {isLoading ?
+                <img src={logo} className="App-logo" alt="logo" />
+                :
+                <>
+                    <AddCard
+                        cardTitle={cardTitle}
+                        onChange={handleCardTitleChange}
+                        onSubmit={addTask}
+                    />
 
-            {lists ? (
+                    {lists && (
+                        <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
+                            <DragDropContext
+                                onDragEnd={result => changeCardStatus(result, lists)}
+                            >
+                                {Object.entries(lists).map(([listId, list], index) => {
+                                    return <List
+                                        key={listId}
+                                        columnId={listId}
+                                        column={list}
+                                        index={index}
+                                    />
+                                })}
+                            </DragDropContext>
+                        </div>
+                    )}
+                </>
+            }
 
-                <div style={{ display: "flex", justifyContent: "center", height: "100%" }}>
-                    <DragDropContext
-                        onDragEnd={result => changeCardStatus(result, lists)}
-                    >
-                        {Object.entries(lists).map(([listId, list], index) => {
-                            return <List
-                                key={listId}
-                                columnId={listId}
-                                column={list}
-                                index={index}
-                            />
-                        })}
-                    </DragDropContext>
-                </div>
-
-            ) : <img src={logo} className="App-logo" alt="logo" />}
-
-        </React.Fragment>
+        </Fragment>
     );
 }
 
