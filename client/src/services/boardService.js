@@ -15,16 +15,39 @@ const boardService = {
         return res.data
     },
 
-    async updateBoard(data) {
+    async updateBoard(result, columns, setColumns) {
+        if (!result.destination) return;
+        const { source, destination } = result;
 
-        // let uWalletUrl = config.app.api_url + '/details'
+        const sourceColumn = columns[source.droppableId];
+        const sourceItems = [...sourceColumn.items];
+        const [removed] = sourceItems.splice(source.index, 1);
 
-        // let headers = AUTH_HEADER
-
-        // let params = { ...DEFAULT_PARAMS, ...data }
-        // let res = await client.get(uWalletUrl, headers, params)
-        // return res.data
-
+        if (source.droppableId !== destination.droppableId) {
+            const destColumn = columns[destination.droppableId];
+            const destItems = [...destColumn.items];
+            destItems.splice(destination.index, 0, removed);
+            setColumns({
+                ...columns,
+                [source.droppableId]: {
+                    ...sourceColumn,
+                    items: sourceItems
+                },
+                [destination.droppableId]: {
+                    ...destColumn,
+                    items: destItems
+                }
+            });
+        } else {
+            sourceItems.splice(destination.index, 0, removed);
+            setColumns({
+                ...columns,
+                [source.droppableId]: {
+                    ...sourceColumn,
+                    items: sourceItems
+                }
+            });
+        }
     },
 
     async addCard(data) {
