@@ -50,6 +50,7 @@ const style = {
         backgroundColor: 'aliceblue',
         color: 'orange',
         fontWeight: 'bold',
+        cursor: "pointer"
     }
 }
 

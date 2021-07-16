@@ -15,21 +15,15 @@ const boardService = {
 
         let url = config.app.api_url + '/task'
 
-
         let params = { content: content }
         let res = await client.post(url, [], params)
-        // return res.data
-        console.log(res)
-
-        const item = res.data
-
+        let item = res.data
 
         let firstColumnIndex = 0;
-
-        const column = lists[Object.keys(lists)[firstColumnIndex]];
+        let column = lists[Object.keys(lists)[firstColumnIndex]];
 
         console.log(column);
-        const items = [...column.items];
+        let items = [...column.items];
         // TODO:: generate id from server 
         items.push(item)
 
@@ -48,15 +42,15 @@ const boardService = {
 
     async updateBoard(result, lists, setLists) {
         if (!result.destination) return;
-        const { source, destination } = result;
+        let { source, destination } = result;
 
-        const sourceColumn = lists[source.droppableId];
-        const sourceItems = [...sourceColumn.items];
-        const [removed] = sourceItems.splice(source.index, 1);
+        let sourceColumn = lists[source.droppableId];
+        let sourceItems = [...sourceColumn.items];
+        let [removed] = sourceItems.splice(source.index, 1);
 
         if (source.droppableId !== destination.droppableId) {
-            const destColumn = lists[destination.droppableId];
-            const destItems = [...destColumn.items];
+            let destColumn = lists[destination.droppableId];
+            let destItems = [...destColumn.items];
             destItems.splice(destination.index, 0, removed);
             setLists({
                 ...lists,
